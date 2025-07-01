@@ -35,7 +35,8 @@ def parse_device_engagement(payload: bytes) -> bytes:
     """Parse Device Engagement data and return the device public key bytes."""
     try:
         obj = cbor2.loads(payload)
-    except Exception as e:  # pragma: no cover - parsing may fail with real data
+    except Exception as e:  # pragma: no cover
+        # parsing may fail with real data
         logger.debug("Device Engagement hex: %s", payload.hex())
         raise RuntimeError(f"Device Engagement decode failed: {e}") from None
 
@@ -58,7 +59,10 @@ def derive_session_keys(
     reader_priv: EllipticCurvePrivateKey, device_pub: bytes
 ) -> tuple[bytes, bytes]:
     """Derive reader/device session keys via ECDH and HKDF."""
-    dev_pub = EllipticCurvePublicKey.from_encoded_point(ec.SECP256R1(), device_pub)
+    dev_pub = EllipticCurvePublicKey.from_encoded_point(
+        ec.SECP256R1(),
+        device_pub,
+    )
     shared = reader_priv.exchange(ec.ECDH(), dev_pub)
     hkdf = HKDF(
         algorithm=hashes.SHA256(),
