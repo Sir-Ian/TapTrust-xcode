@@ -65,7 +65,8 @@ def _get_pcsc_reader():
     rdr_list = readers()
     if not rdr_list:
         raise RuntimeError(
-            "No PC/SC readers found. Is the ACR1252U connected and drivers installed?"
+            "No PC/SC readers found. Is the ACR1252U connected and "
+            "drivers installed?"
         )
 
     for rdr in rdr_list:
@@ -197,7 +198,9 @@ def tap_and_get_payload(
         except (CardConnectionException, NoCardException):
             attempt += 1
             if attempt >= attempts:
-                raise RuntimeError("NFC device removed during operation") from None
+                raise RuntimeError(
+                    "NFC device removed during operation"
+                ) from None
             # else: retry
 
         except CardRequestTimeoutException:
