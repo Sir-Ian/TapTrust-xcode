@@ -16,7 +16,12 @@ app = typer.Typer(no_args_is_help=False)
 @app.callback(invoke_without_command=True)
 def main(
     ctx: typer.Context,
-    verbose: bool = typer.Option(False, "--verbose", "-v", help="Enable debug output"),
+    verbose: bool = typer.Option(
+        False,
+        "--verbose",
+        "-v",
+        help="Enable debug output",
+    ),
 ):
     """If no subcommand is provided, run :func:`scan` directly."""
     logging.basicConfig(level=logging.DEBUG if verbose else logging.INFO)
