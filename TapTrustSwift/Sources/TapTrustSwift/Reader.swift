@@ -1,12 +1,12 @@
 import Foundation
 
-enum NFCError: Error {
+public enum NFCError: Error {
     case notSupported
     case cardNotPresent
     case tapFailed(String)
 }
 
-protocol Reader {
+public protocol Reader {
     mutating func open() throws
     func readMobileID() throws -> Data
     func close()

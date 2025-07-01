@@ -2,12 +2,13 @@
 import Foundation
 import PCSC
 
-struct PCSCReader: Reader {
+public struct PCSCReader: Reader {
     private var context: SCardContext?
     private var handle: SCardHandle?
     private var proto: SCardProtocol = .undefined
 
-    mutating func open() throws {
+    public init() {}
+    public mutating func open() throws {
         context = try SCardEstablishContext(.system)
         guard let ctx = context else { throw NFCError.tapFailed("Context") }
         let readers = try SCardListReaders(ctx)
@@ -19,14 +20,14 @@ struct PCSCReader: Reader {
         proto = connection.pdwActiveProtocol
     }
 
-    func readMobileID() throws -> Data {
+    public func readMobileID() throws -> Data {
         guard handle != nil else { throw NFCError.cardNotPresent }
         // Real APDU exchange omitted. Use mock data for now.
         let mock = URL(fileURLWithPath: "../examples/mock_cose_payload.cbor")
         return try Data(contentsOf: mock)
     }
 
-    func close() {
+    public func close() {
         if let h = handle { try? SCardDisconnect(h, .leave) }
         if let ctx = context { try? SCardReleaseContext(ctx) }
     }

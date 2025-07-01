@@ -1,14 +1,14 @@
 import Foundation
 import SwiftCBOR
 
-struct CBORCOSE {
-    static func decodePayload(raw: Data) throws -> [String: Any] {
+public struct CBORCOSE {
+    public static func decodePayload(raw: Data) throws -> [String: Any] {
         // Attempt COSE decoding first
         if let dict = try? unwrapCOSE(coseBytes: raw) {
             return dict
         }
         // Fallback to plain CBOR
-        guard case let .map(obj) = try CBOR.decode(raw) else {
+        guard case let .map(obj) = try CBOR.decode([UInt8](raw)) else {
             throw NSError(domain: "CBOR", code: 1, userInfo: [NSLocalizedDescriptionKey: "Top-level object is not a map"])
         }
         return objToDict(obj)
@@ -18,13 +18,13 @@ struct CBORCOSE {
         // This is a stub that roughly follows verifier/decode/cose.py
         // Parsing a full COSE_Sign1 structure would require a full COSE library.
         // For this example we only extract the payload assuming structure [h,a,p,s].
-        guard let arr = try? CBOR.decode(coseBytes) else {
+        guard let arr = try? CBOR.decode([UInt8](coseBytes)) else {
             return nil
         }
         guard case let .array(items) = arr, items.count >= 4 else { return nil }
         let payload = items[2]
         guard case let .byteString(data) = payload else { return nil }
-        guard case let .map(obj) = try CBOR.decode(data) else { return nil }
+        guard case let .map(obj) = try CBOR.decode([UInt8](data)) else { return nil }
         var dict = objToDict(obj)
         if case let .byteString(sig) = items[3] {
             dict["signature"] = Data(sig)

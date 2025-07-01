@@ -1,9 +1,16 @@
-#if os(macOS)
+#if canImport(PCSC)
 import PCSC
-typealias SystemReader = PCSCReader
+public typealias SystemReader = PCSCReader
 #elseif canImport(CoreNFC)
 import CoreNFC
-typealias SystemReader = CoreNFCReader
+public typealias SystemReader = CoreNFCReader
 #else
-#error("Unsupported platform")
+import Foundation
+public struct DummyReader: Reader {
+    public init() {}
+    public mutating func open() throws { throw NFCError.notSupported }
+    public func readMobileID() throws -> Data { throw NFCError.notSupported }
+    public func close() {}
+}
+public typealias SystemReader = DummyReader
 #endif
