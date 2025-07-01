@@ -36,7 +36,9 @@ TapTrust will attempt to read a mobile ID from the first PC/SC compatible NFC
 reader (for example the ACR1252U).  Set the environment variable
 `TAPTRUST_USE_MOCK=1` to force the CLI to use the bundled example payload
 instead of real hardware.  The `pyscard` package is required for reader access
-and is installed automatically via Poetry.
+and is installed automatically via Poetry. Installation of `pyscard` also
+requires the PC/SC development headers. On macOS install them with
+`brew install pcsc-lite`, or on Linux run `apt-get install libpcsclite-dev`.
 
 Behind the scenes the CLI enumerates PC/SC readers with
 ``smartcard.System.readers()`` and prefers the ``ACR1252U`` if present.
