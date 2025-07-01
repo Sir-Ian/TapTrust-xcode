@@ -18,16 +18,13 @@ python = ">=3.10,<3.12"
 cbor2 = "*"
 pycose = "*"
 cryptography = "*"
-typer = "*"      # ← add this line
-nfcpy = "*"      # ← add this line
-oscrypto = "^1.3.0"
+typer = "*"
 PyYAML = "*"
 pyscard = "*"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.4"
 flake8 = "^6.0.0"
-pre-commit = "^3.5"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

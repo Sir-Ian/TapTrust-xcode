@@ -11,16 +11,36 @@ from verifier.config import get_known_aids, get_ef_com_file_id
 
 from .apdu import build_apdu, is_success, try_select_aid
 
-from smartcard.CardRequest import CardRequest
-from smartcard.CardType import AnyCardType
-from smartcard.System import readers
-from smartcard.scard import SCARD_PROTOCOL_T1
-from smartcard.Exceptions import (
-    CardRequestTimeoutException,
-    NoReadersException,
-    CardConnectionException,
-    NoCardException,
-)
+try:  # Optional pyscard dependency
+    from smartcard.CardRequest import CardRequest
+    from smartcard.CardType import AnyCardType
+    from smartcard.System import readers
+    from smartcard.scard import SCARD_PROTOCOL_T1
+    from smartcard.Exceptions import (
+        CardRequestTimeoutException,
+        NoReadersException,
+        CardConnectionException,
+        NoCardException,
+    )
+except Exception:  # pragma: no cover - allow import to fail for tests
+    CardRequest = AnyCardType = None  # type: ignore
+
+    def readers():  # type: ignore
+        raise ImportError("pyscard is required for NFC operations")
+
+    SCARD_PROTOCOL_T1 = 0
+
+    class CardRequestTimeoutException(Exception):
+        pass
+
+    class NoReadersException(Exception):
+        pass
+
+    class CardConnectionException(Exception):
+        pass
+
+    class NoCardException(Exception):
+        pass
 
 
 logger = logging.getLogger(__name__)
