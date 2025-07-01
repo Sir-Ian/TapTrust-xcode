@@ -10,7 +10,15 @@ Thank you for helping out! This project uses [Poetry](https://python-poetry.org/
    pip install poetry
    ```
 
-2. Install all dependencies (including development tools):
+2. Install the PC/SC development packages required by `pyscard`.
+   On Debian/Ubuntu you can run:
+
+   ```bash
+   sudo apt-get install libpcsclite-dev pcscd
+   ```
+
+3. Install all dependencies (including development tools). Once the
+   system packages above are present this command should succeed:
 
    ```bash
    poetry install --with dev
