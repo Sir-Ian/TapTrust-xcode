@@ -3,6 +3,12 @@ import Foundation
 import PCSC
 
 public struct PCSCReader: Reader {
+    private static let mockPayload: URL = {
+        var url = URL(fileURLWithPath: #file)
+        url.deleteLastPathComponent()
+        url.deleteLastPathComponent()
+        return url.appendingPathComponent("examples/mock_cose_payload.cbor")
+    }()
     private var context: SCardContext?
     private var handle: SCardHandle?
     private var proto: SCardProtocol = .undefined
@@ -23,8 +29,7 @@ public struct PCSCReader: Reader {
     public func readMobileID() throws -> Data {
         guard handle != nil else { throw NFCError.cardNotPresent }
         // Real APDU exchange omitted. Use mock data for now.
-        let mock = URL(fileURLWithPath: "../examples/mock_cose_payload.cbor")
-        return try Data(contentsOf: mock)
+        return try Data(contentsOf: Self.mockPayload)
     }
 
     public func close() {

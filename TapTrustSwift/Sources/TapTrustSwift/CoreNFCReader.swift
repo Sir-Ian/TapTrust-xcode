@@ -4,6 +4,12 @@ import CoreNFC
 #endif
 
 public struct CoreNFCReader: Reader {
+    private static let mockPayload: URL = {
+        var url = URL(fileURLWithPath: #file)
+        url.deleteLastPathComponent()
+        url.deleteLastPathComponent()
+        return url.appendingPathComponent("examples/mock_cose_payload.cbor")
+    }()
     public init() {}
     public mutating func open() throws {
         #if canImport(CoreNFC)
@@ -16,8 +22,7 @@ public struct CoreNFCReader: Reader {
         #if canImport(CoreNFC)
         throw NFCError.notSupported
         #else
-        let mock = URL(fileURLWithPath: "../examples/mock_cose_payload.cbor")
-        return try Data(contentsOf: mock)
+        return try Data(contentsOf: Self.mockPayload)
         #endif
     }
 
