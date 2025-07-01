@@ -1,4 +1,5 @@
 import Foundation
+import TapTrustSwift
 
 struct CLI {
     static func run() {
@@ -20,7 +21,7 @@ struct CLI {
                 print(str)
             }
         } catch {
-            fputs("[error] \(error)\n", stderr)
+            FileHandle.standardError.write(Data("[error] \(error)\n".utf8))
         }
     }
 }
