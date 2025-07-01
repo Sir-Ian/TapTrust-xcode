@@ -5,7 +5,7 @@ let package = Package(
     name: "TapTrustSwift",
     platforms: [
         .iOS(.v15),
-        .macOS(.v13)
+        .macOS(.v14)
     ],
     products: [
         .library(name: "TapTrustSwift", targets: ["TapTrustSwift"]),
