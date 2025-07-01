@@ -1,0 +1,16 @@
+# Example TapTrust configuration
+# List of issuing authorities that should be trusted.
+# Only IDs listed here will be considered valid during verification.
+# Each identifier should match a PEM file name in trust_anchors/.
+allowed_issuers:
+  - OH   # Ohio
+  - MD   # Maryland
+
+# Known AIDs to try when selecting the mDL applet
+known_aids:
+  ISO18013: D276000024010200
+  GET: A0000003965400
+  Thales: A0000002471001
+
+# Default EF.Com file identifier
+ef_com_file_id: 0x0015
