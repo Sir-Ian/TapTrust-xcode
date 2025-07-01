@@ -1,1 +1,22 @@
-{}
+{
+    "configurations": [
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:TapTrust-xcode}/TapTrustSwift",
+            "name": "Debug TapTrustCLI (TapTrustSwift)",
+            "program": "${workspaceFolder:TapTrust-xcode}/TapTrustSwift/.build/debug/TapTrustCLI",
+            "preLaunchTask": "swift: Build Debug TapTrustCLI (TapTrustSwift)"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:TapTrust-xcode}/TapTrustSwift",
+            "name": "Release TapTrustCLI (TapTrustSwift)",
+            "program": "${workspaceFolder:TapTrust-xcode}/TapTrustSwift/.build/release/TapTrustCLI",
+            "preLaunchTask": "swift: Build Release TapTrustCLI (TapTrustSwift)"
+        }
+    ]
+}
