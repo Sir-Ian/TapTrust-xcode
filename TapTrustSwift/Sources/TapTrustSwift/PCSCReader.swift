@@ -9,6 +9,7 @@ public struct PCSCReader: Reader {
         url.deleteLastPathComponent()
         return url.appendingPathComponent("examples/mock_cose_payload.cbor")
     }()
+
     private var context: SCardContext?
     private var handle: SCardHandle?
     private var proto: SCardProtocol = .undefined
