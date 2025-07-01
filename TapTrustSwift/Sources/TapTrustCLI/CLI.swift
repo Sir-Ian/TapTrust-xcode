@@ -1,9 +1,13 @@
 import Foundation
+import TapTrustSwift
 
 struct CLI {
     static func run() {
+        var reader = SystemReader()
         do {
-            let raw = try NFCReader.tapAndGetPayload(attempts: 1)
+            try reader.open()
+            let raw = try reader.readMobileID()
+            reader.close()
             let parsed = try CBORCOSE.decodePayload(raw: raw)
             let valid = CryptoUtils.verifySignature(parsed: parsed)
             var output: [String: Any] = ["valid": valid]
@@ -17,7 +21,7 @@ struct CLI {
                 print(str)
             }
         } catch {
-            fputs("[error] \(error)\n", stderr)
+            FileHandle.standardError.write(Data("[error] \(error)\n".utf8))
         }
     }
 }
