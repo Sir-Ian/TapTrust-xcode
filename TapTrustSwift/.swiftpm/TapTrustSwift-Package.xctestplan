@@ -1,0 +1,28 @@
+{
+  "configurations" : [
+    {
+      "id" : "D17B7577-4144-47F5-9A58-E0677307B4CD",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:",
+      "identifier" : "TapTrustCLI",
+      "name" : "TapTrustCLI"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "TapTrustSwiftTests",
+        "name" : "TapTrustSwiftTests"
+      }
+    }
+  ],
+  "version" : 1
+}
